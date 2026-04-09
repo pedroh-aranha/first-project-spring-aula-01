@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+        <!DOCTYPE html>
 <!--
 Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
 Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
@@ -10,8 +10,13 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
+        <nav>
+                <a href="/portal">Página inicial</a>
+        </nav>
         <div>
-            <h2 th:text="${nome}">Nome do Usuário</h2>
+            <h2> Nome do Usuário: <span th:text="${nome}"></span></h2>
+            <h3> curso do Usuário: <span th:text="${curso}"></span></h3>
+            <h3> linguagem do Usuário: <span th:text="${linguagemfavorita}"></span></h3>
         </div>
         <main>
         </main>
