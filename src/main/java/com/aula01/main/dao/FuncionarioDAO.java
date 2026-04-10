@@ -10,7 +10,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -35,7 +34,7 @@ public class FuncionarioDAO {
                 funcionario.setNome(rs.getString("nome"));
                 funcionario.setCargo(rs.getString("cargo"));
                 funcionario.setDepartamento(rs.getString("departamento"));
-                funcionario.setEmaill(rs.getString("email"));
+                funcionario.setEmail(rs.getString("email"));
                 funcionario.setDataContratacao(rs.getDate("data_contratacao"));
                 
                 lista.add(funcionario);
@@ -45,5 +44,51 @@ public class FuncionarioDAO {
             e.printStackTrace();
         }
     return lista;
+    }
+    public int totalFuncionario() {
+        int total = 0;
+        try{
+            Connection conn = Conexao.conectar();
+            PreparedStatement stmt = null;
+            ResultSet rs = null;
+            
+            stmt = conn.prepareStatement("select count(*) as total from funcionario");
+            rs = stmt.executeQuery();
+            
+            if(rs.next()) {
+                total = rs.getInt("total");
+            }
+                    
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+        return total;
+    }
+    public List<FuncionarioBean> filtrarFunc() {
+        List<FuncionarioBean> filtro = new ArrayList();
+        try {
+            Connection conn = Conexao.conectar();
+            PreparedStatement stmt = null;       
+            ResultSet rs = null;                 //retorno do banco
+                
+            stmt = conn.prepareStatement("select * from funcionario where departamento = 'tecnologia'");
+            rs = stmt.executeQuery();
+            
+            while(rs.next()) {
+                FuncionarioBean funcionario = new FuncionarioBean();
+                funcionario.setId(rs.getInt("id"));
+                funcionario.setNome(rs.getString("nome"));
+                funcionario.setCargo(rs.getString("cargo"));
+                funcionario.setDepartamento(rs.getString("departamento"));
+                funcionario.setEmail(rs.getString("email"));
+                funcionario.setDataContratacao(rs.getDate("data_contratacao"));
+                
+                filtro.add(funcionario);
+            }
+            
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+        return filtro;
     }
 }
